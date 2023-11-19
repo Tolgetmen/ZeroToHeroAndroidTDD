@@ -10,21 +10,15 @@
     tools:context=".MainActivity">
 
     <TextView
-
-        android:freezesText="true"
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-
-        />
+        android:text="Hello World!" />
 
     <Button
         android:id="@+id/changeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="change"
-
-        />
+        android:text="change" />
 
 </LinearLayout>
