@@ -1,26 +1,33 @@
 package ru.easycode.zerotoheroandroidtdd
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
+
+
+    private var state: State = State.Initial
     private lateinit var linearLayout: LinearLayout
-    private lateinit var textView:  TextView
+    private lateinit var textView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         linearLayout = findViewById(R.id.rootLayout)
 
-        textView = findViewById<TextView>(R.id.titleTextView)
+        textView = findViewById(R.id.titleTextView)
         val button = findViewById<Button>(R.id.removeButton)
 
         button.setOnClickListener {
-            linearLayout.removeView(textView)
+            state = State.Removed
+            state.apply(linearLayout,textView)
         }
 
 
@@ -28,22 +35,39 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val removeTextView = linearLayout.childCount == 1
-        outState.putBoolean(KEY, removeTextView)
+
+        outState.putSerializable(KEY, state)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val removeTextView = savedInstanceState.getBoolean(KEY)
-        if (removeTextView)
-            linearLayout.removeView(textView)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            state = savedInstanceState.getSerializable(KEY, State::class.java) as State
+        } else {
+            state = savedInstanceState.getSerializable(KEY) as State
+        }
+        state.apply(linearLayout, textView)
     }
 
     override fun onDestroy() {
         super.onDestroy()
     }
 
-    companion object{
+    companion object {
         private const val KEY = "removeKey"
+    }
+}
+
+interface State : Serializable {
+
+    fun apply(linearLayout: LinearLayout, textView: TextView)
+    object Initial : State {
+        override fun apply(linearLayout: LinearLayout, textView: TextView) = Unit
+    }
+
+    object Removed : State {
+        override fun apply(linearLayout: LinearLayout, textView: TextView) {
+            linearLayout.removeView(textView)
+        }
     }
 }
