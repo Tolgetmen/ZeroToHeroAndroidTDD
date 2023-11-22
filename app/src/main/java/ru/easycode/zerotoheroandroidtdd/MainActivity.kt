@@ -86,17 +86,20 @@ interface Count {
 
 interface UiState : Serializable {
 
+
+
     fun apply(textView: TextView, button: Button)
-    data class Base(private val text: String) : UiState {
+
+    abstract class Abstract(private val text: String) : UiState{
         override fun apply(textView: TextView, button: Button) {
             textView.text = text
         }
-
     }
+    data class Base(private val text: String) : Abstract(text)
 
-    data class Max(private val text: String) : UiState {
+    data class Max(private val text: String) : Abstract(text) {
         override fun apply(textView: TextView, button: Button) {
-            textView.text = text
+            super.apply(textView, button)
             button.isEnabled = false
         }
 
