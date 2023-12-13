@@ -38,26 +38,19 @@ class MainActivity : AppCompatActivity() {
             uiState = count.initial(textView.text.toString())
             uiState.apply(decrementButton, incrementButton, textView)
         }
+
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY, uiState)
-    }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        uiState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            savedInstanceState.getSerializable(KEY, UiState::class.java) as UiState
-        } else {
-            savedInstanceState.getSerializable(KEY) as UiState
-        }
+
+
+        uiState = count.initial(textView.text.toString())
         uiState.apply(decrementButton, incrementButton, textView)
     }
 
-    companion object {
-        private const val KEY = "uiStateKey"
-    }
+
 }
 
 
@@ -106,7 +99,7 @@ interface Count {
 
 }
 
-interface UiState : Serializable {
+interface UiState {
 
     fun apply(decrementButton: Button, incrementButton: Button, textView: TextView)
 
