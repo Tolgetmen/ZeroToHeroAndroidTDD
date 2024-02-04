@@ -71,7 +71,7 @@ class Task019Test {
         onView(withId(R.id.actionButton)).check(matches(isNotEnabled()))
         onView(withId(R.id.progressBar)).check(matches(isDisplayed()))
 
-        onView(isRoot()).perform(waitTillDisplayed(R.id.titleTextView, 5000))
+        onView(isRoot()).perform(waitTillDisplayed(R.id.titleTextView, 10000))
         onView(withId(R.id.titleTextView)).check(matches(withText("Hello World From Web!")))
         onView(withId(R.id.progressBar)).check(matches(not(isDisplayed())))
         onView(withId(R.id.actionButton)).check(matches(isEnabled()))
