@@ -1,28 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:id="@+id/rootLayout"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-
+        android:visibility="gone"
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:id="@+id/progressBar"/>
 
     <Button
-        android:id="@+id/actionButton"
+        android:text="load"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="load" />
+        android:id="@+id/actionButton"
+
+        />
 </LinearLayout>

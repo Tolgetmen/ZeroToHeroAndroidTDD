@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 
 interface LiveDataWrapper {
 
-
     interface Update {
         fun update(value: UiState)
     }
@@ -18,20 +17,17 @@ interface LiveDataWrapper {
         fun liveData(): LiveData<UiState>
     }
 
+
     interface Mutable : Update, Save, Observe
 
-    class Base(
-        private val liveData: MutableLiveData<UiState> = SingleLiveEvent()
-    ) : Mutable {
+    class Base(private val liveData: MutableLiveData<UiState> = SingleLiveEvent()) : Mutable {
 
         override fun update(value: UiState) {
             liveData.value = value
         }
 
         override fun save(bundleWrapper: BundleWrapper.Save) {
-            liveData.value?.let {
-                bundleWrapper.save(it)
-            }
+            liveData.value?.let { bundleWrapper.save(it) }
         }
 
         override fun liveData(): LiveData<UiState> = liveData
