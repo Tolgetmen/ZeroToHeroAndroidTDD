@@ -16,10 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.actionButton.setOnClickListener {
             val inputText = binding.inputEditText.text
-            val textView = TextView(this).apply {
-                text = inputText
-            }
-            binding.contentLayout.addView(textView)
+            addTextView(inputText.toString())
 //            binding.inputEditText.text?.clear()
             binding.inputEditText.setText("")
         }
@@ -36,11 +33,15 @@ class MainActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         val list = savedInstanceState.getStringArrayList(KEY) ?: ArrayList()
         list.forEach { inputText ->
-            val textView = TextView(this).apply {
-                text = inputText
-            }
-            binding.contentLayout.addView(textView)
+            addTextView(inputText)
         }
+    }
+
+    fun addTextView(inputText: String) {
+        val textView = TextView(this).apply {
+            text = inputText
+        }
+        binding.contentLayout.addView(textView)
     }
 
     companion object {
