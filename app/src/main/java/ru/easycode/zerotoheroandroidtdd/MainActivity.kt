@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.core.view.children
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
+import ru.easycode.zerotoheroandroidtdd.databinding.ListItemBinding
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         binding.actionButton.setOnClickListener {
@@ -39,10 +43,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addTextView(inputText: String) {
-        val textView = TextView(this).apply {
-            text = inputText
-            setTextColor(Color.RED)
-        }
+        val listBinding = ListItemBinding.inflate(layoutInflater)
+        val textView = listBinding.root
+        textView.text = (inputText)
         binding.contentLayout.addView(textView)
     }
 
