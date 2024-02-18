@@ -1,5 +1,6 @@
 package ru.easycode.zerotoheroandroidtdd
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     fun addTextView(inputText: String) {
         val textView = TextView(this).apply {
             text = inputText
+            setTextColor(Color.RED)
         }
         binding.contentLayout.addView(textView)
     }
